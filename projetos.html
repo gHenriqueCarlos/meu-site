@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meus Projetos - Carlos Henrique</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- Navbar igual ao index -->
+    <nav id="navbar" class="site-nav">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-home">Início</a>
+
+            <button class="nav-toggle" aria-label="Abrir menu" aria-controls="nav-menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul id="nav-menu" class="nav-links">
+                <li><a href="index.html#contato" class="nav-cta">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Meus Projetos</h1>
+            <p>Alguns trabalhos com foco em backend usando C#, .NET e boas práticas.</p>
+        </div>
+    </header>
+
+    <!-- Projetos -->
+    <main id="projetos" class="projects-section">
+        <div class="container">
+            <h2>Projetos em Destaque</h2>
+
+            <div class="projects-cards grid">
+                <article class="project-card">
+                    <div class="card-image">
+                        <img src="logo-scs.png" alt="SCS - App de relatos urbanos" />
+                    </div>
+                    <div class="card-body">
+                        <h3>SCS — App de Relatos Urbanos</h3>
+                        <p>App para relatar e acompanhar problemas urbanos em tempo real (título, descrição, foto e localização).</p>
+                        <p class="tech"><strong>Tecnologias:</strong> C#, MAUI</p>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn btn-muted" aria-disabled="true" tabindex="-1">Projeto privado</a>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="card-image">
+                        <img src="logo-scs.png" alt="API RESTful para SCS" />
+                    </div>
+                    <div class="card-body">
+                        <h3>API RESTful — Backend do SCS</h3>
+                        <p>API com ASP.NET Core e JWT para autenticação; orquestra dados do app (usuários, relatos, mídia, localização).</p>
+                        <p class="tech"><strong>Tecnologias:</strong> C#, ASP.NET Core, JWT, MySQL</p>
+                    </div>
+                    <div class="card-actions">
+                        <a class="btn btn-muted" aria-disabled="true" tabindex="-1">Projeto privado</a>
+                    </div>
+                </article>
+
+                <!-- Exemplo pronto para expandir:
+                <article class="project-card">
+                  <div class="card-image">
+                    <img src="projeto3.jpg" alt="Projeto 3" />
+                  </div>
+                  <div class="card-body">
+                    <h3>Projeto 3 — E-commerce</h3>
+                    <p>Plataforma com catálogo, pedidos e painel admin, integração de pagamentos e relatórios.</p>
+                    <p class="tech"><strong>Tecnologias:</strong> C#, Stripe API, SQL Server</p>
+                  </div>
+                  <div class="card-actions">
+                    <a class="btn" href="https://github.com/gHenriqueCarlos/REPO" target="_blank" rel="noopener">Ver no GitHub</a>
+                  </div>
+                </article>
+                -->
+            </div>
+
+            <div class="github-button">
+                <a href="https://github.com/gHenriqueCarlos" target="_blank" rel="noopener" class="btn btn-primary">
+                    Ver todos os projetos no GitHub
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <section class="technologies-section">
+        <div class="container">
+            <h2>Tecnologias que Uso</h2>
+            <div class="tech-icons">
+                <div class="tech-item">
+                    <img src="csharp-icon.png" alt="C#" class="tech-icon" />
+                    <p>C#</p>
+                    <p>Backend eficiente, seguro e escalável.</p>
+                </div>
+                <div class="tech-item">
+                    <img src="dotnet-icon.png" alt=".NET" class="tech-icon" />
+                    <p>.NET</p>
+                    <p>Base para serviços robustos e APIs.</p>
+                </div>
+                <div class="tech-item">
+                    <img src="sql-server.png" alt="SQL Server" class="tech-icon" />
+                    <p>SQL Server</p>
+                    <p>Modelagem, integridade e performance.</p>
+                </div>
+                <div class="tech-item">
+                    <img src="maui-icon.png" alt=".NET MAUI" class="tech-icon" />
+                    <p>.NET MAUI</p>
+                    <p>Apps móveis com um único codebase.</p>
+                </div>
+                <div class="tech-item">
+                    <img src="blazor-icon.png" alt="Blazor" class="tech-icon" />
+                    <p>Blazor</p>
+                    <p>Web interativa usando C# no front.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé igual indexx -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 - Carlos Henrique • Todos os direitos reservados</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/henriquecarlos00/" target="_blank" rel="noopener">LinkedIn</a> |
+                <a href="https://github.com/gHenriqueCarlos" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.getElementById('nav-menu');
+        toggle?.addEventListener('click', () => {
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('open');
+        });
+
+        const nav = document.getElementById('navbar');
+        const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 10);
+        onScroll(); window.addEventListener('scroll', onScroll);
+    </script>
+</body>
+</html>

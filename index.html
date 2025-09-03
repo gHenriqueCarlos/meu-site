@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minha Apresentação - Carlos Henrique</title>
+    <meta name="color-scheme" content="light">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <nav id="navbar" class="site-nav">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-home" aria-current="page">Início</a>
+
+            <button class="nav-toggle" aria-label="Abrir menu" aria-controls="nav-menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul id="nav-menu" class="nav-links">
+                <li><a href="#contato" class="nav-cta">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-grid">
+            <div class="hero-left">
+                <span class="chip">Disponível para novos projetos</span>
+                <h1>Bem-vindo ao Meu Portfólio</h1>
+                <p class="hero-sub">Desenvolvedor de Software · Estudante de C# · Foco em Backend</p>
+
+                <div class="socials">
+                    <a href="https://github.com/gHenriqueCarlos" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5A12 12 0 0 0 0 12.7c0 5.4 3.4 10 8.2 11.6.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.5-1.4-1.9-1.4-1.9-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.3 1.8 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.4-5.3-6.2 0-1.4.5-2.5 1.3-3.4-.1-.3-.6-1.7.1-3.5 0 0 1-.3 3.5 1.3a12 12 0 0 1 6.4 0c2.5-1.6 3.5-1.3 3.5-1.3.7 1.8.2 3.2.1 3.5.8.9 1.3 2 1.3 3.4 0 4.8-2.7 5.9-5.3 6.2.4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6A12.2 12.2 0 0 0 24 12.7 12 12 0 0 0 12 .5Z" /></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/henriquecarlos00/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.1c.6-1.1 2.1-2.2 4.3-2.2 4.6 0 5.5 3 5.5 6.9V24h-5v-6.9c0-1.6 0-3.7-2.3-3.7-2.3 0-2.7 1.8-2.7 3.6V24h-5V8z" /></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="avatar logo-tile">
+                    <svg class="logo-dotnet" viewBox="0 0 120 120" role="img" aria-label=".NET">
+                        <defs>
+                            <linearGradient id="gDotnet" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#5A2CAB" />
+                                <stop offset="100%" stop-color="#7B5CF0" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="10" y="10" width="100" height="100" rx="18" ry="18" fill="url(#gDotnet)" />
+                        <text x="50%" y="58%" text-anchor="middle" fill="#fff" style="font:700 32px 'Source Code Pro', monospace;">.NET</text>
+                    </svg>
+                </div>
+
+                <!--<div class="code-card">
+                <pre><code>// snippet
+                public record Dev(string Name, string Focus) {
+                    public string Hello() => $"Olá, {Name}!";
+                }
+
+                var eu = new Dev("Carlos", "C# / Backend");
+                Console.WriteLine(eu.Hello());</code></pre>
+                                </div>-->
+                <div class="code-card pretty with-tabs">
+                    <div class="code-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <span class="code-title">Snippets · C#</span>
+                        <button class="copy-btn" type="button" aria-label="Copiar código">Copiar</button>
+                    </div>
+
+                    <!-- Abas -->
+                    <div class="code-tabs" role="tablist" aria-label="Exemplos de código">
+                        <button class="tab is-active" data-target="api" role="tab" aria-selected="true">API</button>
+                        <button class="tab" data-target="maui" role="tab" aria-selected="false">MAUI</button>
+                        <button class="tab" data-target="blazor" role="tab" aria-selected="false">Blazor</button>
+                    </div>
+
+                    <!-- API -->
+                    <pre class="code-body is-active" data-snippet="api"><code>
+<span class="com">// Minimal API · C# 12</span>
+<span class="kw">using</span> Microsoft.AspNetCore.Builder;
+<span class="kw">using</span> Microsoft.AspNetCore.Http;
+<span class="kw">using</span> Microsoft.Extensions.Hosting;
+
+<span class="kw">var</span> app = WebApplication.CreateBuilder(args).Build();
+
+app.MapGet(<span class="str">"/"</span>, () =&gt; <span class="kw">new</span> <span class="type">Dev</span>(<span class="str">"Carlos"</span>, <span class="str">"C# / Backend"</span>).Hello());
+app.MapGet(<span class="str">"/score/{n:int}"</span>, (<span class="type">int</span> n) =&gt;
+    n <span class="kw">switch</span>
+    {
+        &lt; <span class="num">0</span>     =&gt; Results.BadRequest(<span class="str">"valor inválido"</span>),
+        &gt;= <span class="num">100</span>  =&gt; Results.Ok(<span class="str">"Perfeito!"</span>),
+        _         =&gt; Results.Ok(<span class="kw">new</span> { n, rating = <span class="type">Math</span>.Round(n / <span class="num">10m</span>, <span class="num">1</span>) })
+    });
+
+app.MapGet(<span class="str">"/health"</span>, () =&gt; Results.Ok(<span class="str">"healthy"</span>));
+app.Run();
+
+<span class="kw">public</span> <span class="kw">record</span> <span class="type">Dev</span>(<span class="type">string</span> Name, <span class="type">string</span> Focus)
+{
+                    <span class="kw">public</span> <span class="type">string</span> Hello() =&gt; $<span class="str">"Olá, {Name}! Foco: {Focus}"</span>;
+}
+  </code></pre>
+
+                    <!-- MAUI -->
+                    <pre class="code-body" data-snippet="maui"><code>
+<span class="com">// .NET MAUI · MainPage em C#</span>
+<span class="kw">using</span> Microsoft.Maui.Controls;
+
+<span class="kw">public partial class</span> <span class="type">MainPage</span> : <span class="type">ContentPage</span>
+{
+                    <span class="type">int</span> _count;
+                    <span class="type">Label</span> _lbl = <span class="kw">new</span> <span class="type">Label</span>{ Text = <span class="str">"Cliques: 0"</span>, HorizontalOptions = <span class="type">LayoutOptions</span>.Center };
+
+                    <span class="kw">public</span> <span class="type">MainPage</span>()
+    {
+        Title = <span class="str">"Olá, MAUI!"</span>;
+        Content = <span class="kw">new</span> <span class="type">VerticalStackLayout</span>{
+            Padding = <span class="num">24</span>,
+            Children =
+            {
+                    <span class="kw">new</span> <span class="type">Label</span>{ Text = <span class="str">"Bem-vindo 👋"</span>, FontSize = <span class="num">24</span>, HorizontalOptions=<span class="type">LayoutOptions</span>.Center },
+                    <span class="kw">new</span> <span class="type">Button</span>{ Text = <span class="str">"Contar"</span>, Command = <span class="kw">new</span> <span class="type">Command</span>(() =&gt; { _count++; _lbl.Text = <span class="str">$"Cliques: {_count}"</span>; }) },
+                _lbl
+            }
+        };
+    }
+}
+  </code></pre>
+
+                    <!-- Blazor -->
+                    <pre class="code-body" data-snippet="blazor"><code>
+<span class="com">@page "/hello"</span>
+<span class="com">&lt;!-- Componente Razor simples --&gt;</span>
+&lt;h3&gt;Hello, @Name!&lt;/h3&gt;
+
+&lt;p&gt;Contador: @count&lt;/p&gt;
+&lt;button class="btn" @onclick="Increment"&gt;Somar&lt;/button&gt;
+
+<span class="kw">@code</span> {
+                    <span class="com">[Parameter]</span> <span class="kw">public</span> <span class="type">string?</span> Name { <span class="kw">get;</span> <span class="kw">set;</span> } = <span class="str">"Carlos"</span>;
+                    <span class="type">int</span> count;
+                    <span class="kw">void</span> Increment() =&gt; count++;
+}
+  </code></pre>
+
+                    <p class="code-note">⚠️ Este é um <strong>exemplo fictício</strong>, apenas para fins visuais. Não representa um código final ou “certo”.</p>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true"><span></span></div>
+
+        <svg class="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,96L80,90.7C160,85,320,75,480,80C640,85,800,107,960,112C1120,117,1280,107,1360,101.3L1440,96V120H0Z" />
+        </svg>
+    </header>
+
+    <!-- Sobre -->
+    <section id="sobre" class="about-section">
+        <div class="container">
+            <h2>Sobre Carlos Henrique</h2>
+
+            <p class="about-lead">
+                Sou <strong>Carlos Henrique</strong>, formado em Análise e Desenvolvimento de Sistemas (ADS) e, desde cedo, aquele curioso que desmonta aparelhos para entender como tudo funciona. Entre computadores, celulares, eletrônica, jogos e muita programação encontrei meu lugar. Gosto tanto do cuidado de um <em>hello world</em> bem feito quanto de arquitetar sistemas mais complexos, do tipo que poderia controlar um veículo inteiro. Estudo todos os dias, experimento, erro e acerto, sempre buscando transformar curiosidade em código útil.
+            </p>
+
+
+            <div class="about-grid">
+                <article class="about-card">
+                    <h3>Quem sou</h3>
+                    <p>
+                        Desenvolvedor focado em <strong>backend com C#/.NET</strong>, curioso e estudioso.
+                        Adoro resolver problemas, desenhar soluções simples e eficientes e aprender continuamente.
+                    </p>
+                </article>
+
+                <article class="about-card">
+                    <h3>Hoje eu foco em</h3>
+                    <ul class="about-list">
+                        <li>APIs e serviços com <strong>C# / ASP.NET Core</strong>;</li>
+                        <li>Bancos relacionais (<strong>SQL Server</strong>, <strong>MySQL</strong>);</li>
+                        <li>Apps móveis com <strong>.NET MAUI</strong> (experiência prática);</li>
+                        <li><strong>Blazor</strong> (início de estudos para web interativa).</li>
+                    </ul>
+                </article>
+
+                <article class="about-card">
+                    <h3>Como posso ajudar</h3>
+                    <ul class="about-list">
+                        <li>Construção de <strong>APIs REST</strong> com autenticação (ex.: JWT);</li>
+                        <li>Integração e persistência de dados (<strong>Entity Framework Core</strong>);</li>
+                        <li>Organização em <strong>camadas/clean</strong> e testes básicos;</li>
+                        <li>Deploy inicial e monitoramento básico.</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="about-actions">
+                <a href="projetos.html" class="btn btn-primary">Ver Meus Projetos</a>
+                <a href="#contato" class="btn btn-outline">Fale comigo</a>
+                <a href="curriculo.pdf" class="btn btn-ghost" download>Baixar CV</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="skills-section">
+        <div class="container">
+            <h2>Habilidades</h2>
+            <div class="skills">
+                <div class="skill-item">
+                    <h3>C#<span class="skill-badge">Foco</span></h3>
+                    <p>Desenvolvimento backend com C# e .NET.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>MAUI<span class="skill-badge">Foco</span></h3>
+                    <p>Apps móveis multiplataforma (Android/iOS) com .NET MAUI.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Blazor<span class="skill-badge">Estudando</span></h3>
+                    <p>Começando a estudar Blazor para web interativa com C#.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>SQL<span class="skill-badge">Foco</span></h3>
+                    <p>Modelagem e consultas em SQL Server e MySQL.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>HTML/CSS<span class="skill-badge">Basico</span></h3>
+                    <p>Base para interfaces web e responsividade.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>JavaScript<span class="skill-badge">Basico</span></h3>
+                    <p>Interatividade de páginas e pequenos componentes.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Java<span class="skill-badge">Basico</span></h3>
+                    <p>Experiência básica em aplicações e utilitários.</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Unity <span class="skill-badge">Iniciante</span></h3>
+                    <p>
+                        Estudando fundamentos do engine e C# para jogos. Pequenos projetos pessoais em andamento.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contact-section">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+
+            <p class="contact-alt">
+                Prefere por e-mail? <a href="mailto:carloshenriquebr92@gmail.com" class="contact-mail">carloshenriquebr92@gmail.com</a>
+                <button type="button" class="copy-email-btn" aria-label="Copiar e-mail">Copiar</button>
+            </p>
+
+            <form id="contact-form"
+                  action="mailto:carloshenriquebr92@gmail.com"
+                  method="POST"
+                  enctype="text/plain"
+                  novalidate>
+                <div class="form-row">
+                    <input type="text" name="nome" id="nome" placeholder="Seu nome" required aria-label="Seu nome">
+                    <input type="email" name="email" id="email" placeholder="Seu e-mail" required aria-label="Seu e-mail">
+                </div>
+
+                <input type="text" name="assunto" id="assunto" placeholder="Assunto (opcional)" aria-label="Assunto">
+
+                <textarea name="mensagem" id="mensagem" placeholder="Sua mensagem" required aria-label="Sua mensagem"></textarea>
+
+                <input type="text" name="website" id="website" class="hp" tabindex="-1" autocomplete="off">
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    <span id="form-status" role="status" aria-live="polite"></span>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 - Carlos Henrique • Todos os direitos reservados</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/henriquecarlos00/" target="_blank" rel="noopener">LinkedIn</a> |
+                <a href="https://github.com/gHenriqueCarlos" target="_blank" rel="noopener">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.copy-email-btn')?.addEventListener('click', () => {
+            const email = 'carloshenriquebr92@gmail.com';
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = document.querySelector('.copy-email-btn');
+                const prev = btn.textContent;
+                btn.textContent = 'Copiado!';
+                btn.disabled = true;
+                setTimeout(() => { btn.textContent = prev; btn.disabled = false; }, 1200);
+            });
+        });
+
+        document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const hp = document.getElementById('website')?.value; 
+            if (hp) return; 
+
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const assunto = document.getElementById('assunto').value.trim() || 'Contato pelo portfólio';
+            const mensagem = document.getElementById('mensagem').value.trim();
+            const status = document.getElementById('form-status');
+
+            if (!nome || !email || !mensagem) {
+                status.textContent = 'Preencha nome, e-mail e mensagem.';
+                return;
+            }
+
+            const to = 'carlos123@gmail.com';
+            const subject = `${assunto} — ${nome}`;
+            const bodyLines = [
+                `Nome: ${nome}`,
+                `E-mail: ${email}`,
+                '',
+                mensagem
+            ];
+            const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+
+            window.location.href = mailto;
+            status.textContent = 'Abrindo seu app de e-mail…';
+        });
+        // abas do card
+        document.addEventListener('click', (e) => {
+            const tab = e.target.closest('.code-tabs .tab');
+            if (!tab) return;
+            const card = tab.closest('.code-card');
+            const target = tab.dataset.target;
+
+            // ativr ou desativa abas
+            card.querySelectorAll('.code-tabs .tab').forEach(btn => {
+                btn.classList.toggle('is-active', btn === tab);
+                btn.setAttribute('aria-selected', btn === tab ? 'true' : 'false');
+            });
+
+            card.querySelectorAll('.code-body').forEach(pre => {
+                pre.classList.toggle('is-active', pre.dataset.snippet === target);
+            });
+        });
+
+        // Copiar
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.copy-btn');
+            if (!btn) return;
+            const card = btn.closest('.code-card');
+            const active = card.querySelector('.code-body.is-active code');
+            if (!active) return;
+
+            const text = active.innerText.replace(/\u00A0/g, ' ');
+            navigator.clipboard.writeText(text).then(() => {
+                const prev = btn.textContent;
+                btn.textContent = 'Copiado!';
+                btn.disabled = true;
+                setTimeout(() => { btn.textContent = prev; btn.disabled = false; }, 1200);
+            });
+        });
+
+
+        // mobile
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.getElementById('nav-menu');
+        toggle?.addEventListener('click', () => {
+            const expanded = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('open');
+        });
+
+        const nav = document.getElementById('navbar');
+        const onScroll = () => {
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+        };
+        onScroll(); window.addEventListener('scroll', onScroll);
+    </script>
+</body>
+</html>
