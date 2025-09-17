@@ -956,3 +956,15 @@ body {
         grid-template-columns: 1fr;
     }
 }
+.card-image.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+}
+
+    .card-image.gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        object-fit: cover;
+    }
