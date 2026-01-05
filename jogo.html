@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mago vs Zombie</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #0b0e14; font-family: 'Verdana', sans-serif; touch-action: none; }
+        canvas { display: block; background: #1a1c23; }
+        #ui { 
+            position: absolute; top: 15px; left: 15px; color: #fff; 
+            pointer-events: none; text-shadow: 2px 2px 5px #000; font-size: 16px;
+            border-left: 4px solid #00f2ff; padding-left: 12px; z-index: 10;
+        }
+        /* Joystick Visual */
+        #joystick-base {
+            position: absolute; bottom: 40px; left: 40px;
+            width: 80px; height: 80px; background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 242, 255, 0.2); border-radius: 50%;
+            display: none; z-index: 50;
+        }
+        #joystick-stick {
+            position: absolute; top: 20px; left: 20px;
+            width: 40px; height: 40px; background: #00f2ff;
+            border-radius: 50%; opacity: 0.4;
+        }
+        #upgradeMenu {
+            display: none; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); background: rgba(20, 20, 30, 0.98);
+            padding: 30px; border: 3px solid #00f2ff; border-radius: 20px;
+            text-align: center; color: white; z-index: 100; box-shadow: 0 0 50px rgba(0, 242, 255, 0.3);
+            width: 280px;
+        }
+        .option { background: #2a2a40; padding: 15px; margin: 10px; cursor: pointer; border-radius: 10px; border: 1px solid #444; font-size: 14px; }
+        .option:hover { background: #00f2ff; color: black; }
+        h2 { color: #00f2ff; font-size: 18px; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <b style="color: #00f2ff;">MAGO VS ZOMBIE</b><br>
+        LVL: <span id="lvl">1</span> | XP: <span id="coins">0</span><br>
+        HP: <span id="hp">100</span>
+    </div>
+
+    <div id="joystick-base"><div id="joystick-stick"></div></div>
+
+    <div id="upgradeMenu">
+        <h2>PODER ARCANO</h2>
+        <div id="optionsContainer"></div>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const joyBase = document.getElementById('joystick-base');
+const joyStick = document.getElementById('joystick-stick');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let isPaused = false;
+let frameCount = 0;
+let hasAura = false;
+
+let player = {
+    x: canvas.width / 2, y: canvas.height / 2,
+    size: 25, speed: 4, hp: 100, level: 1, xp: 0, xpNextLvl: 5,
+    projectileSpeed: 7, auraRadius: 85, auraDamage: 2.2, auraAngle: 0
+};
+
+let enemies = [];
+let projectiles = [];
+let enemyProjectiles = [];
+let particles = [];
+let drops = [];
+let obstacles = [];
+let keys = {};
+let touchData = { active: false, startX: 0, startY: 0, moveX: 0, moveY: 0 };
+
+// Gerador de Obstáculos Original
+function generateObstacles() {
+    obstacles = [];
+    for (let i = 0; i < 12; i++) {
+        obstacles.push({
+            x: Math.random() * (canvas.width - 200) + 100,
+            y: Math.random() * (canvas.height - 200) + 100,
+            size: 40, type: Math.random() > 0.5 ? "🌳" : "🪨"
+        });
+    }
+}
+generateObstacles();
+
+// Controles (Teclado + Touch)
+window.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
+window.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
+
+window.addEventListener('touchstart', e => {
+    joyBase.style.display = 'block';
+    touchData.active = true;
+    touchData.startX = e.touches[0].clientX;
+    touchData.startY = e.touches[0].clientY;
+    joyBase.style.left = (touchData.startX - 40) + 'px';
+    joyBase.style.top = (touchData.startY - 40) + 'px';
+});
+
+window.addEventListener('touchmove', e => {
+    if (!touchData.active) return;
+    let curX = e.touches[0].clientX;
+    let curY = e.touches[0].clientY;
+    let angle = Math.atan2(curY - touchData.startY, curX - touchData.startX);
+    let dist = Math.min(getDist(curX, curY, touchData.startX, touchData.startY), 40);
+    touchData.moveX = Math.cos(angle) * (dist / 40);
+    touchData.moveY = Math.sin(angle) * (dist / 40);
+    joyStick.style.transform = `translate(${touchData.moveX * 30}px, ${touchData.moveY * 30}px)`;
+});
+
+window.addEventListener('touchend', () => {
+    touchData.active = false; touchData.moveX = 0; touchData.moveY = 0;
+    joyBase.style.display = 'none';
+});
+
+function getDist(x1, y1, x2, y2) { return Math.sqrt((x1-x2)**2 + (y1-y2)**2); }
+
+function createExplosion(x, y, color) {
+    for(let i=0; i<6; i++) {
+        particles.push({ x, y, vx: (Math.random()-0.5)*8, vy: (Math.random()-0.5)*8, life: 15, color });
+    }
+}
+
+class Enemy {
+    constructor() {
+        let typeRand = Math.random();
+        if(player.level > 4 && typeRand > 0.85) this.setup('tank');
+        else if(player.level > 2 && typeRand > 0.7) this.setup('shooter');
+        else if(typeRand > 0.5) this.setup('ghost');
+        else this.setup('zombie');
+        this.initPosition();
+    }
+    setup(type) {
+        this.type = type;
+        if (type === 'zombie') { this.hp = 5 + player.level; this.speed = 1.6; this.icon = "🧟"; this.size = 24; }
+        else if (type === 'ghost') { this.hp = 2; this.speed = 3.5; this.icon = "👻"; this.size = 20; }
+        else if (type === 'shooter') { this.hp = 3; this.speed = 1.3; this.icon = "💀"; this.size = 24; this.lastShot = 0; }
+        else if (type === 'tank') { this.hp = 25; this.speed = 0.9; this.icon = "👹"; this.size = 45; }
+    }
+    initPosition() {
+        let side = Math.floor(Math.random() * 4);
+        if(side === 0) { this.x = Math.random()*canvas.width; this.y = -50; }
+        if(side === 1) { this.x = Math.random()*canvas.width; this.y = canvas.height+50; }
+        if(side === 2) { this.x = -50; this.y = Math.random()*canvas.height; }
+        if(side === 3) { this.x = canvas.width+50; this.y = Math.random()*canvas.height; }
+    }
+    update() {
+        let oldX = this.x, oldY = this.y;
+        let dx = player.x - this.x, dy = player.y - this.y;
+        let dist = getDist(this.x, this.y, player.x, player.y);
+        if (this.type === 'shooter' && dist < 300) {
+            if (frameCount - this.lastShot > 100) {
+                let angle = Math.atan2(dy, dx);
+                enemyProjectiles.push({x: this.x, y: this.y, vx: Math.cos(angle)*5, vy: Math.sin(angle)*5});
+                this.lastShot = frameCount;
+            }
+        } else {
+            this.x += (dx/dist) * this.speed;
+            this.y += (dy/dist) * this.speed;
+        }
+        obstacles.forEach(obs => {
+            if (getDist(this.x, this.y, obs.x, obs.y) < obs.size) { this.x = oldX; this.y = oldY; }
+        });
+        if (dist < player.size) player.hp -= 0.35;
+        if (hasAura && dist < player.auraRadius) this.hp -= (player.auraDamage / 12);
+    }
+}
+
+function update() {
+    if (isPaused) return;
+    if (player.hp <= 0) { location.reload(); return; }
+
+    let oldPx = player.x, oldPy = player.y;
+    // Teclado
+    if (keys['w']) player.y -= player.speed;
+    if (keys['s']) player.y += player.speed;
+    if (keys['a']) player.x -= player.speed;
+    if (keys['d']) player.x += player.speed;
+    // Joystick
+    if (touchData.active) {
+        player.x += touchData.moveX * player.speed;
+        player.y += touchData.moveY * player.speed;
+    }
+
+    obstacles.forEach(obs => {
+        if (getDist(player.x, player.y, obs.x, obs.y) < obs.size) { player.x = oldPx; player.y = oldPy; }
+    });
+
+    if (frameCount % Math.max(15, 60 - player.level * 3) === 0) enemies.push(new Enemy());
+
+    // Mira Inteligente
+    if (frameCount % 30 === 0 && enemies.length > 0) {
+        let nearest = null; let minDist = Infinity;
+        enemies.forEach(e => {
+            let d = getDist(player.x, player.y, e.x, e.y);
+            if(d < minDist) { minDist = d; nearest = e; }
+        });
+        if(nearest) {
+            let angle = Math.atan2(nearest.y - player.y, nearest.x - player.x);
+            projectiles.push({x: player.x, y: player.y, vx: Math.cos(angle)*player.projectileSpeed, vy: Math.sin(angle)*player.projectileSpeed});
+        }
+    }
+
+    projectiles.forEach((p, pi) => {
+        p.x += p.vx; p.y += p.vy;
+        enemies.forEach((e, ei) => {
+            if (getDist(p.x, p.y, e.x, e.y) < e.size) { 
+                e.hp -= 6; createExplosion(p.x, p.y, "#00f2ff"); projectiles.splice(pi, 1); 
+            }
+        });
+    });
+
+    enemyProjectiles.forEach((ep, epi) => {
+        ep.x += ep.vx; ep.y += ep.vy;
+        if (getDist(ep.x, ep.y, player.x, player.y) < player.size) {
+            player.hp -= 10; enemyProjectiles.splice(epi, 1);
+            createExplosion(player.x, player.y, "#ff4444");
+        }
+    });
+
+    drops.forEach((d, di) => {
+        if (getDist(player.x, player.y, d.x, d.y) < 45) {
+            player.xp++; drops.splice(di, 1);
+            if (player.xp >= player.xpNextLvl) { 
+                player.level++; player.xp = 0; player.xpNextLvl += 5; showUpgradeMenu(); 
+            }
+        }
+    });
+
+    particles.forEach((p, i) => { p.x += p.vx; p.y += p.vy; p.life--; if(p.life <= 0) particles.splice(i, 1); });
+    enemies.forEach((e, ei) => { e.update(); if (e.hp <= 0) { createExplosion(e.x, e.y, "#fff"); drops.push({x: e.x, y: e.y}); enemies.splice(ei, 1); }});
+
+    player.auraAngle += 0.1; frameCount++;
+    draw();
+    requestAnimationFrame(update);
+}
+
+function showUpgradeMenu() {
+    isPaused = true;
+    const container = document.getElementById('optionsContainer');
+    container.innerHTML = `
+        <div class="option" onclick="applyUpgrade('speed')">⚡ Agilidade Arcaica</div>
+        <div class="option" onclick="applyUpgrade('hp')">❤️ Restauração Vital</div>
+        ${!hasAura ? '<div class="option" onclick="applyUpgrade(\'aura\')">🌀 Invocar Aura</div>' : '<div class="option" onclick="applyUpgrade(\'aura_up\')">🔥 Intensificar Aura</div>'}
+    `;
+    document.getElementById('upgradeMenu').style.display = 'block';
+}
+
+function applyUpgrade(type) {
+    if (type === 'speed') player.speed += 0.8;
+    if (type === 'hp') player.hp = 100;
+    if (type === 'aura') hasAura = true;
+    if (type === 'aura_up') { player.auraRadius += 20; player.auraDamage += 1.5; }
+    document.getElementById('upgradeMenu').style.display = 'none';
+    isPaused = false;
+    requestAnimationFrame(update);
+}
+
+function draw() {
+    ctx.fillStyle = "rgba(26, 28, 35, 0.5)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    obstacles.forEach(obs => { ctx.font = obs.size + "px serif"; ctx.fillText(obs.type, obs.x - 20, obs.y + 15); });
+
+    if (hasAura) {
+        ctx.strokeStyle = "#00f2ff"; ctx.lineWidth = 3; ctx.shadowBlur = 15; ctx.shadowColor = "#00f2ff";
+        ctx.beginPath(); ctx.arc(player.x, player.y, player.auraRadius, 0, Math.PI*2); ctx.stroke();
+    }
+
+    particles.forEach(p => { ctx.fillStyle = p.color; ctx.fillRect(p.x, p.y, 3, 3); });
+
+    ctx.shadowBlur = 0; ctx.font = "35px serif";
+    ctx.fillText("🧙‍♂️", player.x - 18, player.y + 12);
+    enemies.forEach(e => { ctx.font = e.size + "px serif"; ctx.fillText(e.icon, e.x - (e.size/2), e.y + (e.size/2)); });
+    
+    ctx.shadowBlur = 12; ctx.shadowColor = "#00f2ff"; ctx.fillStyle = "#00f2ff"; 
+    projectiles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI*2); ctx.fill(); });
+
+    ctx.shadowColor = "#ff0000"; ctx.fillStyle = "#fff"; 
+    enemyProjectiles.forEach(ep => { ctx.beginPath(); ctx.arc(ep.x, ep.y, 5, 0, Math.PI*2); ctx.fill(); });
+
+    ctx.shadowColor = "#00f2ff"; ctx.shadowBlur = 15;
+    drops.forEach(d => { ctx.font = "20px serif"; ctx.fillText("💎", d.x - 10, d.y + 10); });
+
+    document.getElementById('lvl').innerText = player.level;
+    document.getElementById('hp').innerText = Math.floor(player.hp);
+    document.getElementById('coins').innerText = player.xp;
+}
+update();
+</script>
+</body>
+</html>
