@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Política de Privacidade — AndroidAutoPlus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #F6F3EE;
+            --surface: #FFFFFF;
+            --surface-alt: #EFEBE4;
+            --outline: #E3DED5;
+            --ink: #1D1B19;
+            --ink-muted: #6F6A62;
+            --primary: #E8552F;
+            --primary-container: #FCE3DA;
+            --on-primary-container: #7A2410;
+            --success: #2F8F5B;
+            --success-container: #DDF1E4;
+            --on-success-container: #17472D;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--ink);
+            background-color: var(--bg-page);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            background-color: #1C1A18;
+            color: #FFFFFF;
+            padding: 56px 20px 48px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(232, 85, 47, 0.15);
+            color: #FF8A65;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        header h1 {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        header p.subtitle {
+            color: #C5BFB6;
+            font-size: 16px;
+        }
+
+        main {
+            padding: 44px 20px 60px;
+        }
+
+        .policy-card {
+            background-color: var(--surface);
+            padding: 44px;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(29, 27, 25, 0.04);
+            border: 1px solid var(--outline);
+        }
+
+        .highlight-box {
+            background-color: var(--success-container);
+            border: 1px solid rgba(47, 143, 91, 0.3);
+            border-radius: 18px;
+            padding: 22px 24px;
+            margin: 28px 0;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .highlight-box .icon {
+            font-size: 26px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--on-success-container);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: var(--ink);
+            margin-top: 36px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--outline);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 22px 0 10px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #38342E;
+            font-size: 15px;
+        }
+
+        ul {
+            margin: 12px 0 20px 24px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #38342E;
+            font-size: 15px;
+        }
+
+        strong {
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .perm-card {
+            background: var(--surface-alt);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        .perm-card strong {
+            display: block;
+            color: var(--primary);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .info-box {
+            background-color: var(--surface-alt);
+            padding: 22px;
+            border-radius: 18px;
+            margin-top: 24px;
+            border: 1px solid var(--outline);
+        }
+
+        .info-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #1C1A18;
+            color: #9E978E;
+            text-align: center;
+            padding: 32px 20px;
+            font-size: 14px;
+            border-top: 1px solid #2B2825;
+        }
+
+        footer strong {
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 40px 18px 36px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .policy-card {
+                padding: 26px 20px;
+                border-radius: 20px;
+            }
+
+            h2 {
+                font-size: 19px;
+            }
+
+            .highlight-box {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="brand-badge">🚗 AndroidAutoPlus</div>
+        <h1>Política de Privacidade</h1>
+        <p class="subtitle">Transparência total e respeito à sua privacidade · Última atualização: 19 de outubro de 2026</p>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <section class="policy-card">
+
+            <div class="highlight-box">
+                <div class="icon">🛡️</div>
+                <div>
+                    <p><strong>Privacidade Absoluta (Zero Coleta de Dados):</strong> O <strong>AndroidAutoPlus</strong> foi desenvolvido sob o princípio de <em>Privacy by Design</em>. Não coletamos, não transmitimos, não armazenamos e não compartilhamos nenhum dado pessoal, histórico de navegação ou conteúdo em servidores externos. <strong>Tudo é processado localmente no próprio celular do usuário.</strong></p>
+                </div>
+            </div>
+
+            <h2>1. Apresentação e Escopo</h2>
+            <p>Esta Política de Privacidade aplica-se ao aplicativo móvel <strong>AndroidAutoPlus</strong> (pacote <code>com.chprojects.androidautoplus</code>), desenvolvido por <strong>Carlos Henrique (chProjects)</strong>.</p>
+            <p>O <strong>AndroidAutoPlus</strong> é um aplicativo utilitário voltado à integração com a plataforma <strong>Android Auto</strong>, permitindo renderizar navegador web, vídeos e espelhamento de tela do smartphone na multimídia do veículo.</p>
+            <p>Esta política foi elaborada em estrita conformidade com a <strong>Lei Geral de Proteção de Dados Pessoais (LGPD - Lei nº 13.709/2018)</strong>, com o <strong>Regulamento Geral sobre a Proteção de Dados (GDPR)</strong> e com as diretrizes do <strong>Google Play Developer Policy</strong>.</p>
+
+            <h2>2. Dados Tratados: Nenhum Dado é Coletado ou Armazenado Externamente</h2>
+            <p>O aplicativo opera de forma 100% autônoma no dispositivo:</p>
+            <ul>
+                <li><strong>Sem Cadastro ou Login Próprio:</strong> O aplicativo não exige criação de conta, e-mail, senha, número de telefone ou qualquer cadastro prévio.</li>
+                <li><strong>Sem Servidores Próprios:</strong> O desenvolvedor não opera servidores de coleta, bancos de dados em nuvem ou serviços de telemetria remota vinculados ao app.</li>
+                <li><strong>Sem Rastreamento ou Analytics Ocultos:</strong> Não utilizamos ferramentas de espionagem, perfis comportamentais ou venda de dados para redes de publicidade.</li>
+            </ul>
+
+            <h2>3. Permissões do Android e suas Finalidades Estritas</h2>
+            <p>Para interagir com o Android Auto e fornecer seus recursos técnicos, o aplicativo requer permissões específicas no Android. Abaixo, explicamos a necessidade de cada uma:</p>
+
+            <div class="perm-card">
+                <strong>📍 Localização (ACCESS_FINE_LOCATION e ACCESS_COARSE_LOCATION)</strong>
+                <p style="margin: 0;"><strong>Por que é solicitada:</strong> Exigência técnica obrigatória do sistema operacional Android 14+ (API 34+) para que qualquer aplicativo possa iniciar um serviço da categoria <code>androidx.car.app.category.NAVIGATION</code> em primeiro plano (<em>ForegroundServiceType "location"</em>) no Android Auto.<br>
+                <strong>Garantia de Privacidade:</strong> O AndroidAutoPlus <strong>não</strong> rastreia rotas, <strong>não</strong> armazena seu histórico de posições e <strong>não</strong> envia suas coordenadas geográficas para lugar nenhum.</p>
+            </div>
+
+            <div class="perm-card">
+                <strong>📱 Captura de Tela (MediaProjection / FOREGROUND_SERVICE_MEDIA_PROJECTION)</strong>
+                <p style="margin: 0;"><strong>Por que é solicitada:</strong> Utilizada exclusivamente quando você aciona o <em>Modo Espelhamento de Tela</em>. Ela permite gerar um fluxo de vídeo local em tempo real transmitido diretamente via VirtualDisplay para a tela da multimídia do carro.<br>
+                <strong>Garantia de Privacidade:</strong> Nenhuma imagem, vídeo ou gravação da tela é gravada no armazenamento permanente ou transmitida para a internet. A transmissão cessa imediatamente quando você toca em "Parar Espelhamento".</p>
+            </div>
+
+            <div class="perm-card">
+                <strong>🌐 Internet (INTERNET e ACCESS_NETWORK_STATE)</strong>
+                <p style="margin: 0;"><strong>Por que é solicitada:</strong> Utilizada exclusivamente pelo componente nativo de visualização web (<code>WebView</code>) para carregar os sites que você mesmo solicita (ex: YouTube, Google, Twitch), exatamente como no Google Chrome ou qualquer outro navegador de internet.<br>
+                <strong>Garantia de Privacidade:</strong> A comunicação é direta entre o seu aparelho e o site acessado. O desenvolvedor não possui servidores intermediários (não atua como proxy) e não tem acesso aos conteúdos navegados.</p>
+            </div>
+
+            <div class="perm-card">
+                <strong>🔔 Notificações (POST_NOTIFICATIONS)</strong>
+                <p style="margin: 0;"><strong>Por que é solicitada:</strong> Exigida pelo Android para exibir a notificação de serviço em primeiro plano enquanto o espelhamento de tela estiver ativo, garantindo que o sistema não encerre a transmissão inesperadamente e oferecendo um botão prático para desligar o espelhamento a qualquer instante.</p>
+            </div>
+
+            <h2>4. Navegação Web e Serviços de Terceiros</h2>
+            <p>Ao utilizar o modo navegador para acessar plataformas como YouTube, Google, Twitch, Globoplay ou outros sites de sua escolha:</p>
+            <ul>
+                <li>A conexão ocorre diretamente entre o seu dispositivo e os servidores do serviço acessado através de conexões seguras (HTTPS).</li>
+                <li>Eventuais cookies, sessões ou dados de login que você optar por preencher nos sites acessados são gerenciados localmente pelo motor de WebView do seu próprio dispositivo e estão sujeitos exclusivamente às <strong>Políticas de Privacidade dos respectivos serviços de terceiros</strong>.</li>
+            </ul>
+
+            <h2>5. Armazenamento Local de Preferências</h2>
+            <p>O AndroidAutoPlus armazena um número mínimo de informações estritamente no armazenamento local do seu smartphone (usando <code>SharedPreferences</code>):</p>
+            <ul>
+                <li><strong>Favoritos:</strong> URLs e títulos que você salva como atalho rápido para a tela do carro.</li>
+                <li><strong>Preferência de Modo:</strong> Se o modo desktop (User-Agent de PC) está ativo ou inativo.</li>
+                <li><strong>Exibição do Tutorial:</strong> A preferência de não reabrir a janela de tutorial inicial automaticamente.</li>
+            </ul>
+            <p>Esses dados nunca saem do seu celular e podem ser apagados por você a qualquer momento limpando os dados do aplicativo nas Configurações do Android ou simplesmente desinstalando o app.</p>
+
+            <h2>6. Direitos do Usuário e Exclusão de Dados (LGPD e GDPR)</h2>
+            <p>Em conformidade com a LGPD e o GDPR, garantimos o pleno exercício dos seus direitos. Como o <strong>AndroidAutoPlus não mantém nenhuma base de dados ou cadastro em servidores</strong>:</p>
+            <ul>
+                <li>Você tem controle total sobre os dados locais no seu aparelho.</li>
+                <li>Para eliminar 100% das preferências e atalhos salvos, basta acessar <em>Configurações do Android &gt; Aplicativos &gt; AndroidAutoPlus &gt; Armazenamento &gt; Limpar Dados</em> ou desinstalar o aplicativo.</li>
+            </ul>
+
+            <h2>7. Privacidade de Crianças e Adolescentes</h2>
+            <p>O aplicativo não é direcionado especificamente a crianças e não realiza qualquer tipo de coleta de informações de identificação pessoal de nenhum usuário, independentemente da idade.</p>
+
+            <h2>8. Alterações nesta Política</h2>
+            <p>Eventuais atualizações nesta Política de Privacidade serão publicadas nesta mesma página, com a data de revisão correspondente. Como o compromisso do aplicativo é a não coleta de dados, qualquer evolução técnica futura manterá o mesmo padrão rigoroso de proteção.</p>
+
+            <h2>9. Contato e Responsável pelo Tratamento</h2>
+            <p>Caso tenha dúvidas, sugestões ou solicitações relativas a esta Política de Privacidade ou ao funcionamento do aplicativo, sinta-se à vontade para entrar em contato diretamente com o desenvolvedor responsável:</p>
+
+            <div class="info-box">
+                <p><strong>Desenvolvedor Responsável:</strong> Carlos Henrique (chProjects)</p>
+                <p><strong>Aplicativo:</strong> AndroidAutoPlus</p>
+                <p><strong>E-mail de Suporte e Privacidade:</strong> <a href="mailto:carloshenriquebr92@gmail.com">carloshenriquebr92@gmail.com</a></p>
+            </div>
+
+        </section>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 <strong>Carlos Henrique (chProjects)</strong> · AndroidAutoPlus. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>
